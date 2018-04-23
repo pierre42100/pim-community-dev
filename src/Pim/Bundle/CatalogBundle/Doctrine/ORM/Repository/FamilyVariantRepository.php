@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Pim\Bundle\CatalogBundle\Doctrine\ORM\Repository;
 
@@ -26,5 +27,28 @@ class FamilyVariantRepository extends EntityRepository implements FamilyVariantR
     public function findOneByIdentifier($identifier)
     {
         return $this->findOneBy(['code' => $identifier]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findIdentifierByAttributeAxes(array $attributeAxesCode): array
+    {
+        $queryBuilder = $this->createQueryBuilder('familyVariant')
+            ->select('familyVariant.code')
+            ->innerJoin('familyVariant.variantAttributeSets', 'variantAttributeSets')
+            ->innerJoin('variantAttributeSets.axes', 'axes')
+            ->where('axes.code IN (:attributeCodes)')
+            ->setParameter('attributeCodes', $attributeAxesCode);
+
+        $codes = $queryBuilder->getQuery()
+            ->getArrayResult();
+
+        return array_map(
+            function ($data) {
+                return $data['code'];
+            },
+            $codes
+        );
     }
 }

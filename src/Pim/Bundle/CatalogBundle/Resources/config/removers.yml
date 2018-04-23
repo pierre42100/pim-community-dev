@@ -4,6 +4,7 @@ parameters:
     pim_catalog.remover.channel.class:               Pim\Bundle\CatalogBundle\Doctrine\Common\Remover\ChannelRemover
     pim_catalog.remover.completeness.class: Pim\Bundle\CatalogBundle\Doctrine\ORM\CompletenessRemover
     pim_catalog.remover.family_variant.class: Pim\Component\Catalog\Updater\Remover\FamilyVariantRemover
+    pim_catalog.remover.attribute_option.class: Pim\Component\Catalog\Updater\Remover\AttributeOptionRemover
 
 services:
     pim_catalog.remover.group_type:
@@ -57,13 +58,6 @@ services:
             - '@event_dispatcher'
             - '%pim_catalog.entity.attribute.class%'
 
-    pim_catalog.remover.attribute_option:
-        class: '%pim_catalog.remover.base.class%'
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@event_dispatcher'
-            - '%pim_catalog.entity.attribute_option.class%'
-
     pim_catalog.remover.category:
         class: '%pim_catalog.remover.base.class%'
         arguments:
@@ -103,3 +97,10 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@event_dispatcher'
             - '@pim_catalog.doctrine.query.count_entity_with_family_variant'
+
+    pim_catalog.remover.attribute_option:
+        class: '%pim_catalog.remover.attribute_option.class%'
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@event_dispatcher'
+            - '@pim_catalog.repository.family_variant'

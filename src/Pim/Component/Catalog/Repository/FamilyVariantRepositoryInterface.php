@@ -13,4 +13,12 @@ use Doctrine\Common\Persistence\ObjectRepository;
  */
 interface FamilyVariantRepositoryInterface extends ObjectRepository, IdentifiableObjectRepositoryInterface
 {
+    /**
+     * Find family variants identifier where attribute axes match given attribute codes.
+     *
+     * @param array $attributeAxesCode
+     *
+     * @return array
+     */
+    public function findIdentifierByAttributeAxes(array $attributeAxesCode): array;
 }
