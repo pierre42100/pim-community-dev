@@ -20,3 +20,7 @@
 - Change signature of `Pim\Component\Connector\ArrayConverter\FlatToStandard\ProductModel` constructor to add the `Pim\Component\Connector\ArrayConverter\FlatToStandard\Product\AssociationColumnsResolver`
 - Change signature of `Pim\Component\Component\Catalog\ProductBuilder` constructor to add the `Pim\Component\Catalog\Association\MissingAssociationAdder`
 - `Pim\Component\Catalog\Model\ProductModelInterface` now implements `Pim\Component\Catalog\Model\AssociationAwareInterface`
+
+## Migrations
+
+Please run the doctrine migrations command in order to see the new catalog volume monitoring screen: `bin/console doctrine:migrations:migrate --env=prod`
